@@ -7,9 +7,36 @@
     <title>Document</title>
 </head>
 <body>
-    <% for(var i = 0; i < posts.length; i++) { %>
-        <h4>제목 : <%= posts[i].title %></h4>
-        <p>내용 : <%= posts[i].date %> </p>
-    <% } %>
+    <ul>
+        <% for(var i = 0; i < posts.length; i++) { %>
+        <li>
+          <h4>제목 : <%= posts[i].title %></h4>
+          <p>내용 : <%= posts[i].date %> </p>
+          <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>
+        </li>
+        <% } %>
+    </ul>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+
+  $('.delete').click(function(e){
+    var textId = e.target.dataset.id;
+    const clickedEl = $(this); 
+
+    $.ajax({
+      method : 'DELETE',
+      url : '/delete',
+      data : {_id : textId},
+    }).done(function(res){
+      console.log('삭제성공');
+      clickedEl.parent('li').fadeOut();
+
+    }).fail(function(){
+      console.log('err 400')
+    });
+  })
+
+</script>
+
 </body>
 </html>
