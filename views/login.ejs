@@ -7,18 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <%- include('nav.html') %>
+    <!-- <%- include('nav.html') %> -->
 
-    <h2>오늘의 일기</h2>
-    <ul>
-        <% for(var i = 0; i < posts.length; i++) { %>
-        <li>
-          <h4>제목 : <%= posts[i].title %></h4>
-          <p>내용 : <%= posts[i].date %> </p>
-          <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>
-        </li>
-        <% } %>
-    </ul>
+    <div class="container">
+      <form action="/login" method="POST">
+          <p>아이디</p>
+          <input name="id" type="text" placeholder="오늘의 이야기">
+          <p>비밀번호</p>
+          <input name="pw" type="text" placeholder="세부내용">
+          <button type="submit">로그인</button>
+      </form>
+  </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 

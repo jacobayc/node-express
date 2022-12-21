@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <%- include('nav.html') %>
+
+  <div class="detail">
+    <h4>상세페이지</h4>
+    <p>제목 : <%= data.title %></p>
+    <p>날짜 : <%= data.date %></p>
+  </div>
+</body>
+</html>
+<style>
+  .detail{width:90%; margin:0 auto;  padding:5px; border:1px solid #000;}
+</style>
