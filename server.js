@@ -30,15 +30,14 @@ app.get('/write', function(req,res){
     res.render('write.ejs');
 });
 
-app.post('/add', (req,res) => {
-    res.send('전송완료');
+app.post('/list', (req,res) => {
+    res.redirect('/list')
     console.log(req.body.title)
     db.collection('counter').findOne({name : '게시물 갯수'}, (err, response) => {
         console.log(response.totalPost)
         var total = response.totalPost;
 
         db.collection('post').insertOne({ _id: total+1, title : req.body.title, date : req.body.date}, function(err, res){
-            console.log('collection post 저장완료');
             db.collection('counter').updateOne({name:'게시물 갯수'},{ $inc : {totalPost:1}},(err, res) =>{
                 if(err) {return console.log(err)}
             });

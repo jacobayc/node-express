@@ -16,6 +16,7 @@
           <h4>제목 : <%= posts[i].title %></h4>
           <p>내용 : <%= posts[i].date %> </p>
           <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>
+          <button class="edit" data-id="<%= posts[i]._id %>">수정</button>
         </li>
         <% } %>
     </ul>
@@ -39,12 +40,22 @@
     });
   })
 
+  $('.edit').click(function(e){
+    var textId = e.target.dataset.id;
+    const origin = window.location.origin
+    const editUrl = origin +"/edit" + `/${textId}`
+    console.log(editUrl)
+    location.href = editUrl
+  })
+
 </script>
 </body>
 </html>
 <style>
   h2{width:200px; margin: 40px auto 20px;}
-  ul{width:90%; margin:0 auto; border:1px solid #ccc; }
-  li{list-style: none; padding:5px;}
-  li button{background-color:Red; color:#fff; border:none; cursor:pointer; width:70px; height:30px;}
+  ul{width:90%; margin:0 auto;  padding-left:0px;}
+  li{list-style: none; margin:5px; padding:5px; border:1px solid salmon; border-radius:10px;}
+  li button{ color:#fff; border:none; cursor:pointer; width:70px; height:30px;}
+  .delete{background-color:red;}
+  .edit{background-color:blueviolet;}
 </style>
