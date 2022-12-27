@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p><%= thisUser.id %>님의 마이페이지 입니다.</p>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+
+  $('.delete').click(function(e){
+    var textId = e.target.dataset.id;
+    const clickedEl = $(this); 
+
+    $.ajax({
+      method : 'DELETE',
+      url : '/delete',
+      data : {_id : textId},
+    }).done(function(res){
+      console.log('삭제성공');
+      clickedEl.parent('li').fadeOut();
+
+    }).fail(function(){
+      console.log('err 400')
+    });
+  })
+
+</script>
+</body>
+</html>
+<style>
+  h2{width:200px; margin: 40px auto 20px;}
+  ul{width:90%; margin:0 auto; border:1px solid #ccc; }
+  li{list-style: none; padding:5px;}
+  li button{background-color:Red; color:#fff; border:none; cursor:pointer; width:70px; height:30px;}
+</style>

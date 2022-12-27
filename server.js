@@ -53,6 +53,17 @@ app.get('/list', (req, res) => {
     });
 });
 
+//search 검색요청
+app.get('/search', (req, res) => {
+   console.log(req.query.value);
+   db.collection('post').find({title : /req.query.value/}).toArray((err, response)=>{
+    console.log(response)
+    res.render('search.ejs', {posts : response});
+   });
+});
+
+
+
 
 app.delete('/delete', (req,res)=>{
     console.log(req.body);
@@ -108,6 +119,23 @@ app.post('/login', passport.authenticate('local', {
     res.redirect('/')
 });
 
+app.get('/mypage',checkLogin, (req, res) =>{
+    console.log(req.user);
+    res.render('mypage.ejs', {thisUser : req.user})
+});
+
+function checkLogin(req, res, next){
+    if(req.user){
+        next()
+    } else {
+        res.send('plz login first')
+    }
+}
+
+
+
+
+
 passport.use(new LocalStrategy({
     usernameField: 'id',
     passwordField: 'pw',
@@ -130,6 +158,13 @@ passport.use(new LocalStrategy({
   passport.serializeUser(function(user, done){
     done(null, user.id)
   });
+
+
+
+  //마이페이지 접속시 session 찾을 때
   passport.deserializeUser(function(id, done){
-    done(null, {})
-  });
+    //db에서 위의 user.id로 user를 찾은 뒤 유저 정보를 아래 done에 넣어줌  
+    db.collection('login').findOne({id : id}, function (err, response){
+        done(null, response)
+    })
+});
