@@ -10,11 +10,11 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <%- include('nav.html') %>
 
-    <h2>검색 결과 페이지</h2>
+    <h2>Search Results</h2>
 
-    <div style="width:90%; margin:0 auto;">
-      <input id="search-input" type="text" style="width:86%; margin-left:2%; height:20px; background-color:#efefef; border:none;">
-      <button id="search" style="border:none; vertical-align: middle;">검색</button>
+    <div style="width:90%; margin:0 auto; text-align:right;">
+      <input id="search-input" type="text" style="width:100px; margin-left:2%; height:20px; background-color:#efefef; border:none;">
+      <button id="search" style="border:none; width:50px; padding:none; vertical-align: middle; cursor: pointer;">search</button>
     </div>
 
     <script>
@@ -26,12 +26,12 @@
 
 
     <ul>
-        <% for(var i = 0; i < posts.length; i++) { %>
+      <% for(var i = 0; i < posts.length; i++) { %>
         <li>
-          <h4>제목 : <%= posts[i].title %></h4>
-          <p>내용 : <%= posts[i].date %> </p>
-          <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>
-          <button class="edit" data-id="<%= posts[i]._id %>">수정</button>
+          <h3><%= posts[i].title %></h3>
+          <h5><%= posts[i].date %> </h5>
+          <button class="delete" data-id="<%= posts[i]._id %>">Delete</button>
+          <button class="edit" data-id="<%= posts[i]._id %>">Edit</button>
         </li>
         <% } %>
     </ul>
@@ -67,10 +67,12 @@
 </body>
 </html>
 <style>
+  h3{text-indent:10px;}
+  h5{padding:5px; word-break: keep-all; line-height: 1.5;}
   h2{width:200px; margin: 40px auto 20px;}
   ul{width:90%; margin:0 auto;  padding-left:0px;}
-  li{list-style: none; margin:5px; padding:5px; border:1px solid salmon; border-radius:10px;}
-  li button{ color:#fff; border:none; cursor:pointer; width:70px; height:30px;}
-  .delete{background-color:red;}
-  .edit{background-color:blueviolet;}
+  li{list-style: none; margin:5px; padding:5px; border:1px solid #efefef; border-radius:10px;}
+  li button{ color:#fff; border:none; cursor:pointer; width:70px; height:30px; background-color:transparent;}
+  .delete{color:red;}
+  .edit{color:blueviolet;}
 </style>

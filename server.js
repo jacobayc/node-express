@@ -12,11 +12,7 @@ MongoClient.connect('mongodb+srv://admin:1234rewq@cluster0.pdnixo4.mongodb.net/?
    
     //연결 성공
     if(err) return console.log(err)
-
     db = client.db('memoApp');
-
-    
-
     app.listen(8080, function(){
         console.log('listening on 8080 with MongoDB')
     });
@@ -33,12 +29,12 @@ app.get('/write', function(req,res){
 app.post('/list', (req,res) => {
     res.redirect('/list')
     console.log(req.body.title)
-    db.collection('counter').findOne({name : '게시물 갯수'}, (err, response) => {
+    db.collection('counter').findOne({name : 'countId'}, (err, response) => {
         console.log(response.totalPost)
         var total = response.totalPost;
-
-        db.collection('post').insertOne({ _id: total+1, title : req.body.title, date : req.body.date}, function(err, res){
-            db.collection('counter').updateOne({name:'게시물 갯수'},{ $inc : {totalPost:1}},(err, res) =>{
+        let today = new Date();
+        db.collection('post').insertOne({ _id: total+1, title : req.body.title, date : req.body.date, time : today.toLocaleTimeString()}, function(err, res){
+            db.collection('counter').updateOne({name:'countId'},{ $inc : {totalPost:1}},(err, res) =>{
                 if(err) {return console.log(err)}
             });
         });
@@ -56,7 +52,7 @@ app.get('/list', (req, res) => {
 //search 검색요청
 app.get('/search', (req, res) => {
    console.log(req.query.value);
-   db.collection('post').find({title : /req.query.value/}).toArray((err, response)=>{
+   db.collection('post').find({title : req.query.value}).toArray((err, response)=>{
     console.log(response)
     res.render('search.ejs', {posts : response});
    });
